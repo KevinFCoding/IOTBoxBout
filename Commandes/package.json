@@ -1,0 +1,11 @@
+{
+  "name": "commandes",
+  "version": "1.0.0",
+  "description": "NodeJs projet pour gérer les commandes AT des puces et créer un lien avec firebase",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "BoxBout",
+  "license": "ISC"
+}
