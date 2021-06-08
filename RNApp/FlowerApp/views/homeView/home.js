@@ -1,13 +1,12 @@
 import React from 'react';
-import {View, Text} from 'react-native'
-import {StatusBar} from 'expo-status-bar'
+import {View, Text, Button} from 'react-native'
 import {styles} from './home.style'
-
-export default function Home() {
+import CustomisableButton from '../../components/CustomisableButton/customisableButton'
+export default function Home({navigation}) {
     return (
         <View style={styles.container}>
             <Text>Bienvenue sur Flower App</Text>
-            <StatusBar style="auto" />
+            <CustomisableButton title="Gérer les plantes"onPress={()=> navigation.navigate("FlowerList")}/>
         </View>
     );
 }
