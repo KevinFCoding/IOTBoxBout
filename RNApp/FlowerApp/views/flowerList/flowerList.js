@@ -2,7 +2,7 @@ import React from "react"
 import { Text, View, FlatList  } from "react-native";
 import { styles } from "./flowerList.style";
 import ListItem from "./listItem";
-import { FAB } from 'react-native-paper';
+import PucesModal from "../modal/pucesModal/pucesModal";
 
 export default function FlowerList() {
     const flowerList = [
@@ -23,7 +23,7 @@ export default function FlowerList() {
         <View style={styles.container}>
             <Text style={styles.title}>Liste des fleurs</Text>
             <FlatList renderItem={renderItem} data={flowerList} keyExtractor={item => item.id.toString()}></FlatList>
-            <FAB color="black" style={styles.addButton} icon="plus"></FAB>
+            <PucesModal></PucesModal>
         </View >
     )
 }
