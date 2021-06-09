@@ -1,32 +1,31 @@
 const http = require('http');
 var firebase = require("firebase");
+var Model = require("./models/Puce.js");
+require('dotenv').config();
 
-const hostname = '127.0.0.1';
-const port = 3000;
-
-
+const hostname = process.env.HOSTNAME;
+const port = process.env.PORT;
 
 firebase.initializeApp({
-  apiKey: "AIzaSyDNEHFXG8rRQdXxLOGhP8uyVcBVgiq53lA",
-  authDomain: "box-bout.firebaseapp.com",
-  databaseURL: "https://box-bout-default-rtdb.europe-west1.firebasedatabase.app",
-  projectId: "box-bout",
-  storageBucket: "box-bout.appspot.com",
-  messagingSenderId: "187684869556",
-  appId: "1:187684869556:web:55478cc6422b19e1434ee1",
+  apiKey: process.env.API_KEY,
+  authDomain: process.env.AUTH_DOMAIN,
+  databaseURL: process.env.DATABASE_URL,
+  projectId: process.env.PROJECT_ID,
+  storageBucket: process.env.STORAGE_BUCKET,
+  messagingSenderId: process.env.MESSAGING_SENDER_ID,
+  appId: process.env.APP_ID,
 });
 
 var db = firebase.database();
+var refPuces = db.ref("puces");
 
-console.log(db);
+// console.log(refPuces);
 
-var testData = {
-  waterLevel: 55,
-  puceID: 3
-}
+var testMac = "macAdress2";
+var testData = Model.Puce("Plante de ouf", mac, false, 84, 100);
 
 // write data into RTDB
-db.ref("puces").set(testData, function(error) {
+refPuces.child(testMac).set(testData, function(error) {
   if (error) {
     // The write failed...
     console.log("Failed with error: " + error)
@@ -37,8 +36,9 @@ db.ref("puces").set(testData, function(error) {
 })
 
 // read data from RTDB
-database.ref('puces').once('value')
+refPuces.child(testMac).once('value')
 .then(function(snapshot) {
+    console.log("TEST GET")
     console.log( snapshot.val() )
 })
 
