@@ -5,6 +5,7 @@ import Home from './views/homeView/home'
 import FlowerList from './views/flowerList/flowerList'
 import firebase from 'firebase'
 import { firebaseConfig } from './dbConfig/firebaseConf'
+import FlowerDetails from './views/flowerDetail/flowerDetail';
 
 export default function App() {
   const Stack = createStackNavigator();
@@ -20,7 +21,7 @@ export default function App() {
       <Stack.Navigator screenOptions={{headerShown: false}}>
         <Stack.Screen name="Home" component={Home}/>
         <Stack.Screen name="FlowerList" component={FlowerList}/>
-        <Stack.Screen name="FlowerDetails" component={FlowerList}/>
+        <Stack.Screen name="FlowerDetails" component={FlowerDetails}/>
       </Stack.Navigator>
     </NavigationContainer>
   );

@@ -37,6 +37,7 @@ export const itemStyles = StyleSheet.create({
     },
     stateIcon:{
       width: 30,
-      height: 30
+      height: 30,
+      marginRight: 10
     }
   });
