@@ -9,6 +9,8 @@ export const styles = StyleSheet.create({
         textAlign: 'center',
         marginTop: 50,
         padding:20,
-        backgroundColor: 'green'
+        fontSize: 20,
+        borderBottomWidth: 1,
+        borderBottomColor: "grey"
     }
 });

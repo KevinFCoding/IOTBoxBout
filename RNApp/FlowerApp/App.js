@@ -20,6 +20,7 @@ export default function App() {
       <Stack.Navigator screenOptions={{headerShown: false}}>
         <Stack.Screen name="Home" component={Home}/>
         <Stack.Screen name="FlowerList" component={FlowerList}/>
+        <Stack.Screen name="FlowerDetails" component={FlowerList}/>
       </Stack.Navigator>
     </NavigationContainer>
   );

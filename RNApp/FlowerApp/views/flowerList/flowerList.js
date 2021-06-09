@@ -13,7 +13,7 @@ export default function FlowerList() {
     const renderItem = ({ item }) => <ListItem title={item.name} />;
     return (
         <View style={styles.container}>
-            <Text style={styles.title}>FlowerList</Text>
+            <Text style={styles.title}>Liste des fleurs</Text>
             <FlatList renderItem={renderItem} data={flowerList} keyExtractor={item => item.id.toString()}></FlatList>
         </View >
     )
