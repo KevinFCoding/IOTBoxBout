@@ -1,9 +1,9 @@
 import firebase from 'firebase/app'
 export default dataManipulation = {
     getPuces : function (){
-        return firebase.database().ref("puces").get();
+        return firebase.database().ref("plantes").get();
     },
     getPuceByMacAdress : function (macAdress){
-        return firebase.database().ref("puces").child(macAdress).get();
+        return firebase.database().ref("plantes").child(macAdress).get();
     }
 }

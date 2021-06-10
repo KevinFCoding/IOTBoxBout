@@ -5,6 +5,7 @@ import { useNavigation } from '@react-navigation/native';
 import {utils} from '../../utils'
 
 export default function ListItem({item}) {
+    console.log(item)
     const navigation = useNavigation()
 
     return (
