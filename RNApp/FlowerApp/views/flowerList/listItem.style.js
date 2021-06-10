@@ -6,7 +6,7 @@ export const itemStyles = StyleSheet.create({
       backgroundColor: '#fff',
       alignItems: 'center',
       margin: 30,
-      marginBottom: 0,
+      marginBottom: 10,
       height: 100,
       elevation: 10,
       borderRadius: 20,
