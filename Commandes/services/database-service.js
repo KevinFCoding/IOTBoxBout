@@ -1,4 +1,4 @@
-function createNewPlante(newPlantef) {
+function createNewPlante(newPlante) {
   var firebase = require("firebase");
 
   var db = firebase.database();
