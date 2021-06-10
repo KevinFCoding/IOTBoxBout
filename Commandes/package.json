@@ -4,6 +4,7 @@
   "description": "NodeJs projet pour gérer les commandes AT des puces et créer un lien avec firebase",
   "main": "index.js",
   "scripts": {
+    "start" : "node ./index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "BoxBout",

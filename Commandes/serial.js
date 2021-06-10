@@ -1,16 +1,17 @@
-var SerialPort = require('serialport');
+function startSerialListener () {
+  var SerialPort = require('serialport');
 var xbee_api = require('xbee-api');
 var C = xbee_api.constants;
 require('dotenv').config()
 
-const SERIAL_PORT = 2222;
+const SERIAL_PORT = process.env.SERIAL_PORT;
 
 var xbeeAPI = new xbee_api.XBeeAPI({
   api_mode: 2
 });
 
 let serialport = new SerialPort(SERIAL_PORT, {
-  baudRate: process.env.SERIAL_BAUDRATE || 9600,
+  baudRate: parseInt(process.env.SERIAL_BAUDRATE) || 9600,
 }, function (err) {
   if (err) {
     return console.log('Error: ', err.message)
@@ -73,3 +74,6 @@ xbeeAPI.parser.on("data", function (frame) {
   }
 
 });
+}
+
+exports.startSerialListener = startSerialListener;
