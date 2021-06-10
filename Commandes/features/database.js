@@ -28,11 +28,11 @@ function initDatabase() {
   // })
 
   // read data from RTDB
-  refPuces.child(testMac).p('value')
-  .then(function(snapshot) {
-      console.log("TEST GET")
-      console.log( snapshot.val() )
-  })
+  // refPuces.child(testMac).p('value')
+  // .then(function(snapshot) {
+  //     console.log("TEST GET")
+  //     console.log( snapshot.val() )
+  // })
 }
 
 exports.initDatabase = initDatabase;
