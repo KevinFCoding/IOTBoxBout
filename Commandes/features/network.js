@@ -1,4 +1,4 @@
-function startSerialListener () {
+function initNetwork () {
   var SerialPort = require('serialport');
 var xbee_api = require('xbee-api');
 var C = xbee_api.constants;
@@ -76,4 +76,4 @@ xbeeAPI.parser.on("data", function (frame) {
 });
 }
 
-exports.startSerialListener = startSerialListener;
+exports.initNetwork = initNetwork;
