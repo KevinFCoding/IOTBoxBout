@@ -1,6 +1,6 @@
 function initDatabase() {
   var firebase = require("firebase");
-  var Model = require("../models/Puce.js");
+  var service = require('../services/database-service.js');
   require('dotenv').config();
 
   firebase.initializeApp({
@@ -16,23 +16,12 @@ function initDatabase() {
   var db = firebase.database();
   var refPuces = db.ref("puces");
 
-  // write data into RTDB
-  // refPuces.child(testMac).set(testData, function(error) {
-  //   if (error) {
-  //     // The write failed...
-  //     console.log("Failed with error: " + error)
-  //   } else {
-  //     // The write was successful...
-  //     console.log("success")
-  //   }
-  // })
-
-  // read data from RTDB
-  refPuces.child(testMac).p('value')
-  .then(function(snapshot) {
-      console.log("TEST GET")
-      console.log( snapshot.val() )
-  })
+  refPuces.on('child_changed', (snapshot) => {
+    const data = snapshot.val();
+    console.log(data);
+  });
+    
+  service.deletePuce("MAC");
 }
 
 exports.initDatabase = initDatabase;
