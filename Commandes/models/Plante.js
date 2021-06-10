@@ -1,6 +1,7 @@
-function Puce(
+function Plante(
     nodeId, 
     mac,
+    networkId,
     sleep,
     waterLevel,
     lightLevel,
@@ -8,11 +9,12 @@ function Puce(
     return {
         nodeId: nodeId,
         mac: mac,
+        networkId: networkId,
         sleep: sleep,
         waterLevel: waterLevel,
         lightLevel: lightLevel,    
     };
 }
 
-exports.Puce = Puce;
+exports.Plante = Plante;
 
