@@ -14,7 +14,6 @@ export const styles = StyleSheet.create({
         alignSelf: 'stretch',
         margin: 20,
         flex: 1,
-        alignItems: 'center'
     },
     floatButton:{
       position: 'absolute',
@@ -24,10 +23,24 @@ export const styles = StyleSheet.create({
       backgroundColor: "green"
     },
     puceItem:{
-        backgroundColor: "red",
-        margin: 30,
-        marginBottom: 0,
+        backgroundColor: "white",
+        marginBottom: 30,
+        marginLeft: 3,
+        marginRight: 3,
+        padding: 10,
+        height: 80,
         elevation: 5,
-        padding: 10
+        borderRadius : 10
+    },
+    pressable: {
+      flex: 1,
+      alignSelf: 'stretch'
+    },
+    modalTitle:{
+      textAlign: "center",
+      fontSize: 20
+    },
+    flatList:{
+      marginTop: 40
     }
 });

@@ -7,7 +7,7 @@ export default function ListItem({item}) {
     const navigation = useNavigation()
     return (
         <View style={itemStyles.container}>
-            <Pressable style={itemStyles.pressable} onPress={()=>{navigation.navigate("FlowerDetails")}}>
+            <Pressable style={itemStyles.pressable} onPress={()=>{navigation.navigate("FlowerDetails", {plante : item})}}>
                 <View style={itemStyles.subContainer}>
                    <Image style={itemStyles.img} source={{uri : "https://www.jardiner-malin.fr/wp-content/uploads/2019/10/massif-de-Petunia.jpg"}}/>
                     <View style={itemStyles.infos}>

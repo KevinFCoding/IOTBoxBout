@@ -7,7 +7,7 @@ export const styles = StyleSheet.create({
     },
     title:{
         textAlign: 'center',
-        marginTop: 50,
+        marginTop: 5,
         padding:20,
         fontSize: 20,
         borderBottomWidth: 0.5,
