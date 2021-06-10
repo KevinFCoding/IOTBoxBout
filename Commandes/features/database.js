@@ -1,6 +1,5 @@
 function initDatabase() {
   var firebase = require("firebase");
-  var service = require('../services/database-service.js');
   require('dotenv').config();
 
   firebase.initializeApp({
@@ -14,14 +13,12 @@ function initDatabase() {
   });
 
   var db = firebase.database();
-  var refPuces = db.ref("puces");
+  var refPlantes = db.ref("plantes");
 
   refPuces.on('child_changed', (snapshot) => {
     const data = snapshot.val();
     console.log(data);
   });
-    
-  service.deletePuce("MAC");
 }
 
 exports.initDatabase = initDatabase;

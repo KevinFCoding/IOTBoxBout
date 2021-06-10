@@ -1,10 +1,10 @@
-function createNewPuce(newPuce) {
+function createNewPlante(newPlantef) {
   var firebase = require("firebase");
 
   var db = firebase.database();
-  var refPuces = db.ref("puces");
+  var refPlantes = db.ref("plantes");
   
-  refPuces.child(newPuce.mac).set(newPuce, function(error) {
+  refPlantes.child(newPlante.mac).set(newPlante, function(error) {
     if (error) {
       // The write failed...
       console.log("Failed with error: " + error)
@@ -19,9 +19,9 @@ function updateWaterLevel(macAdress, waterLevel) {
   var firebase = require("firebase");
   
   var db = firebase.database();
-  var refPuces = db.ref("puces");
+  var refPlantes = db.ref("plantes");
 
-  refPuces.child(macAdress).child('waterLevel').set(waterLevel, function(error) {
+  refPlantes.child(macAdress).child('waterLevel').set(waterLevel, function(error) {
     if (error) {
       // The write failed...
       console.log("Failed with error: " + error);
@@ -36,9 +36,9 @@ function updateLightLevel(macAdress, lightLevel) {
   var firebase = require("firebase");
   
   var db = firebase.database();
-  var refPuces = db.ref("puces");
+  var refPlantes = db.ref("plantes");
 
-  refPuces.child(macAdress).child('lightLevel').set(lightLevel, function(error) {
+  refPlantes.child(macAdress).child('lightLevel').set(lightLevel, function(error) {
     if (error) {
       // The write failed...
       console.log("Failed with error: " + error);
@@ -53,9 +53,9 @@ function updateSleepMode(macAdress, sleep) {
   var firebase = require("firebase");
   
   var db = firebase.database();
-  var refPuces = db.ref("puces");
+  var refPlantes = db.ref("plantes");
 
-  refPuces.child(macAdress).child('sleep').set(sleep, function(error) {
+  refPlantes.child(macAdress).child('sleep').set(sleep, function(error) {
     if (error) {
       // The write failed...
       console.log("Failed with error: " + error);
@@ -66,17 +66,35 @@ function updateSleepMode(macAdress, sleep) {
   })
 }
 
-function deletePuce(macAdress) {
+function deletePlante(macAdress) {
   var firebase = require("firebase");
   
   var db = firebase.database();
-  var refPuces = db.ref("puces");
+  var refPlantes = db.ref("plantes");
 
-  refPuces.child(macAdress).remove();
+  refPlantes.child(macAdress).remove();
 }
 
-exports.create = createNewPuce;
+function createNewRouter(newRouter) {
+  var firebase = require("firebase");
+
+  var db = firebase.database();
+  var refPlantes = db.ref("routers");
+  
+  refPlantes.child(newRouter.mac).set(newRouter, function(error) {
+    if (error) {
+      // The write failed...
+      console.log("Failed with error: " + error)
+    } else {
+      // The write was successful...
+      console.log("Write successful")
+    }
+  })
+}
+
+exports.createPlante = createNewPlante;
 exports.updateWaterLevel = updateWaterLevel;
 exports.updateLightLevel = updateLightLevel;
 exports.updateSleepMode = updateSleepMode;
-exports.deletePuce = deletePuce;
+exports.deletePlante = deletePlante;
+exports.createRouter = createNewRouter;

@@ -1,4 +1,4 @@
-function Puce(
+function Plante(
     nodeId, 
     mac,
     sleep,
@@ -14,5 +14,5 @@ function Puce(
     };
 }
 
-exports.Puce = Puce;
+exports.Plante = Plante;
 
