@@ -15,6 +15,18 @@ function createNewPlante(newPlante) {
   })
 }
 
+function getPlante(macAdress) {
+  var firebase = require("firebase");
+
+  var db = firebase.database();
+  var refPlantes = db.ref("plantes");
+
+  refPlantes.child(macAdress).once('value')
+    .then(function(snapshot) {
+      console.log(snapshot.val())
+  })
+}
+
 function updateWaterLevel(macAdress, waterLevel) {
   var firebase = require("firebase");
   
@@ -79,9 +91,9 @@ function createNewRouter(newRouter) {
   var firebase = require("firebase");
 
   var db = firebase.database();
-  var refPlantes = db.ref("routers");
+  var refRouters = db.ref("routers");
   
-  refPlantes.child(newRouter.mac).set(newRouter, function(error) {
+  refRouters.child(newRouter.mac).set(newRouter, function(error) {
     if (error) {
       // The write failed...
       console.log("Failed with error: " + error)
@@ -92,9 +104,29 @@ function createNewRouter(newRouter) {
   })
 }
 
+function getAllRouterNetworkId() {
+  var firebase = require("firebase");
+
+  var db = firebase.database();
+  var refRouters = db.ref("routers");
+
+  var result = [];
+
+  refRouters.once('value')
+  .then(function(snapshot) {
+    Object.values(snapshot.val()).forEach(val => {
+      result.push(val.mac);
+    });
+  })
+
+  return result;
+}
+
 exports.createPlante = createNewPlante;
+exports.getPlante = getPlante;
 exports.updateWaterLevel = updateWaterLevel;
 exports.updateLightLevel = updateLightLevel;
 exports.updateSleepMode = updateSleepMode;
 exports.deletePlante = deletePlante;
 exports.createRouter = createNewRouter;
+exports.getAllRouterNetworkId = getAllRouterNetworkId;
