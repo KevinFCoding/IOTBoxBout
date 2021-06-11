@@ -5,12 +5,11 @@ import { useNavigation } from '@react-navigation/native';
 import {utils} from '../../utils'
 
 export default function ListItem({item}) {
-    console.log(item)
     const navigation = useNavigation()
-
+    
     return (
         <View style={itemStyles.container}>
-            <Pressable style={itemStyles.pressable} onPress={()=>{navigation.navigate("FlowerDetails", {plante : item})}}>
+            <Pressable style={itemStyles.pressable} onPress={()=>{navigation.navigate("FlowerDetails", {planteMAC : item.MAC})}}>
                 <View style={itemStyles.subContainer}>
                    <Image style={itemStyles.img} source={{uri : "https://www.jardiner-malin.fr/wp-content/uploads/2019/10/massif-de-Petunia.jpg"}}/>
                     <View style={itemStyles.infos}>

@@ -4,6 +4,7 @@ import { View, Text, TextInput } from "react-native";
 import CustomisableButton from "../../components/CustomisableButton/customisableButton";
 import { styles } from "./addFlowerForm.style";
 import Flower from '../../models/Flower'
+import dataManipulation from "../../dbConfig/dataManipulation";
 
 export default function AddFlowerForm({route}){
     const {puce} = route.params
@@ -13,7 +14,7 @@ export default function AddFlowerForm({route}){
     const [plantSunMin, setPlantSunMin] = useState(0)
     const [plantSunMax, setPlantSunMax] = useState(0)
     const navigation = useNavigation();
-
+    console.log(puce);
     puce.NI = plantName;
     let flower = new Flower(0,plantWaterMax,plantWaterMin,0,plantSunMax,plantSunMin);
 
@@ -31,8 +32,6 @@ export default function AddFlowerForm({route}){
 }
 
 function addPlant(plantInfos){
-    console.log("AJOUT D'UNE PLANTE");
-    console.log(plantInfos);
-
-    //Traitement de l'info
+    console.log("AJOUT D'UNE PLANTE : ");
+    dataManipulation.editPuceInfosByMacAdress(plantInfos.MAC,plantInfos)
 }

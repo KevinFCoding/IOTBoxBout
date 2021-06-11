@@ -6,35 +6,34 @@ import PucesModal from "../modal/pucesModal/pucesModal";
 import Puce from "../../models/Puce";
 import Flower from "../../models/Flower";
 import dataManipulation from "../../dbConfig/dataManipulation";
+import { NavigationContainer, useNavigation } from "@react-navigation/native";
+import { FAB } from "react-native-paper";
 
 export default function FlowerList() {
     
+    const navigation = useNavigation();
     const [flowerList, setFlowerList] = useState([]);
 
-    // var firstPuceFlower = new Flower(20,50,10,6,10,5);
-    // var firstPuce = new Puce("Puce 1","MAC Test 1", false,firstPuceFlower);
-
-    // var secondPuceFlower = new Flower(40,10,0,6,10,5)
-    // var secondPuce = new Puce("Puce 2","MAC Test 2", true,secondPuceFlower);
-
-    // const flowerList = [firstPuce,secondPuce]
     useEffect(() => {
         dataManipulation.getPuces().then(list => {
             let flist = [];
             list.forEach(c => {
-                let flower = new Flower(c.child("waterLevel").val(),0,0,c.child("lightLevel").val(),0,0);
-                let puce = new Puce(c.child("nodeId").val(),c.child("mac").val(),c.child("sleep").val(),flower);
-                flist.push(puce)
+                if(c.hasChild("nodeId") && c.child("nodeId") != ""){
+                    let flower = new Flower(c.child("waterLevel").val(),0,0,c.child("lightLevel").val(),0,0);
+                    let puce = new Puce(c.child("nodeId").val(),c.child("mac").val(),c.child("sleep").val(),flower);
+                    flist.push(puce)
+                }
             })
             setFlowerList(flist);
         });
-    },[])
+    },[flowerList])
+
     const renderItem = ({ item }) => <ListItem item={item} />;
     return (
         <View style={styles.container}>
             <Text style={styles.title}>Liste des fleurs</Text>
-            {flowerList.length > 0 ? <FlatList renderItem={renderItem} data={flowerList}></FlatList> : <Text>Loading...</Text>}
-            <PucesModal></PucesModal>
+            {flowerList.length > 0 ? <FlatList renderItem={renderItem} data={flowerList} keyExtractor={item => item.MAC}></FlatList> : <Text>Aucune plante n'est lié a une puce, appuyez sur le + pour lier une plante à une puce</Text>}
+            <FAB color="black" onPress={() => {navigation.navigate("PuceModal")}} style={styles.floatButton} icon="plus"></FAB>
         </View >
     )
 }
