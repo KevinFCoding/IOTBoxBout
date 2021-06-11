@@ -6,6 +6,7 @@ function initDatabase() {
   var service = require('../services/database-service.js')
   require('dotenv').config();
 
+  console.log("Start Database");
   firebase.initializeApp({
     apiKey: process.env.API_KEY,
     authDomain: process.env.AUTH_DOMAIN,

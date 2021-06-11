@@ -51,8 +51,9 @@ function updateWaterLevel(macAddress, waterLevel) {
   
   var db = firebase.database();
   var refPlants = db.ref("plantes");
-
-  refPlants.child(macAddress).child('waterLevel').set(waterLevel, function(error) {
+ if (isNaN(waterLevel))
+ return
+  refPlants.child(macAddress).child('waterLevel').set(parseInt(waterLevel), function(error) {
     if (error) {
       // The write failed...
       console.log("Failed with error: " + error);
@@ -68,8 +69,9 @@ function updateLightLevel(macAddress, lightLevel) {
   
   var db = firebase.database();
   var refPlants = db.ref("plantes");
-
-  refPlants.child(macAddress).child('lightLevel').set(lightLevel, function(error) {
+  if (isNaN(lightLevel))
+  return
+  refPlants.child(macAddress).child('lightLevel').set(parseInt(lightLevel), function(error) {
     if (error) {
       // The write failed...
       console.log("Failed with error: " + error);
@@ -123,7 +125,7 @@ function createNewRouter(newRouter) {
   })
 }
 
-function getAllRouterNetworkId() {
+function getAllRouterNetworkId(callback) {
   var firebase = require("firebase");
 
   var db = firebase.database();
@@ -134,9 +136,10 @@ function getAllRouterNetworkId() {
   refRouters.once('value')
   .then(function(snapshot) {
     Object.values(snapshot.val()).forEach(val => {
+      console.log(val)
       result.push(val);
     });
-
+    callback(result);
     return result;
   })
 }
