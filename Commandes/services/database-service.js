@@ -40,9 +40,10 @@ function getAllPlants() {
     Object.values(snapshot.val()).forEach(val => {
       result.push(val);
     });
+ 
+    return result;
   })
 
-  return result;
 }
 
 function updateWaterLevel(macAddress, waterLevel) {
@@ -135,9 +136,9 @@ function getAllRouterNetworkId() {
     Object.values(snapshot.val()).forEach(val => {
       result.push(val.mac);
     });
-  })
 
-  return result;
+    return result;
+  })
 }
 
 exports.createPlant = createNewPlant;
