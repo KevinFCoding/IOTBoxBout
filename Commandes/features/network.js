@@ -1,3 +1,5 @@
+var databaseService = require("../services/database-service")
+
 function initNetwork () {
   var SerialPort = require('serialport');
   var xbee_api = require('xbee-api');
@@ -37,7 +39,7 @@ function initNetwork () {
       }
     */
 
-    //on new device is joined, register it
+    //register new device when a new connexion arrives
 
     //on packet received, dispatch event
     //let dataReceived = String.fromCharCode.apply(null, frame.data);
@@ -56,16 +58,17 @@ function initNetwork () {
 
       // Frame correspondant à la réception de donnée depuis les différents capteurs
       console.log("ZIGBEE_IO_DATA_SAMPLE_RX");
+      console.log(frame)
 
       //Traitement de la data niveau d'eau en pourcentage (AD0 - D0)
-
+      var waterLevelPercentage = (frame.analogSamples.AD0 / 12)
       // Envoi de la data traitée dans la db
-
+      databaseService.updateWaterLevel(frame.remote64, waterLevelPercentage);
 
       //Traitement de la data luminosité en pourcentage (AD1 - D1)
-
+      var lightLevelPercentage = (frame.analogSamples.AD1 / 12)
       // Envoi de la donnée traitée dans la db
-
+      databaseService.updateLightLevel(frame.remote64, lightLevelPercentage);
 
     } else {
       console.debug(frame);
