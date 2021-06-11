@@ -19,7 +19,7 @@ export default function FlowerList() {
             let flist = [];
             list.forEach(c => {
                 if(c.hasChild("nodeId") && c.child("nodeId") != ""){
-                    let flower = new Flower(c.child("waterLevel").val(),0,0,c.child("lightLevel").val(),0,0);
+                    let flower = new Flower(c.child("waterLevel").val(),c.child("criticalHighWL").val(),c.child("criticalLowWL").val(),c.child("lightLevel").val(),c.child("criticalHighLL").val(),c.child("criticalLowLL").val());
                     let puce = new Puce(c.child("nodeId").val(),c.child("mac").val(),c.child("sleep").val(),flower);
                     flist.push(puce)
                 }
