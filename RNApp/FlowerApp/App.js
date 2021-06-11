@@ -1,21 +1,32 @@
-import { StatusBar } from 'expo-status-bar';
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { createStackNavigator } from '@react-navigation/stack';
+import { NavigationContainer } from '@react-navigation/native';
+import Home from './views/homeView/home'
+import FlowerList from './views/flowerList/flowerList'
+import firebase from 'firebase'
+import { firebaseConfig } from './dbConfig/firebaseConf'
+import FlowerDetails from './views/flowerDetail/flowerDetail';
+import AddFlowerForm from './views/addFlowerForm/addFlowerForm';
+import PucesModal from './views/modal/pucesModal/pucesModal';
 
 export default function App() {
+  const Stack = createStackNavigator();
+
+  if(!firebase.apps.length){
+    firebase.initializeApp(firebaseConfig);
+  }else{
+    firebase.app()
+  }
+
   return (
-    <View style={styles.container}>
-      <Text>Bienvenue sur Flower App</Text>
-      <StatusBar style="auto" />
-    </View>
+    <NavigationContainer>
+      <Stack.Navigator>
+        <Stack.Screen name="Home" options={{ title: 'Flower App' }} component={Home}/>
+        <Stack.Screen name="FlowerList" options={{ title: '' }} component={FlowerList}/>
+        <Stack.Screen name="FlowerDetails" options={{ title: 'Détails' }} component={FlowerDetails}/>
+        <Stack.Screen name="PuceModal" options={{ title: '' }} component={PucesModal}/>
+        <Stack.Screen name="AddFlowerForm" options={{ title: 'Ajouter une plante' }} component={AddFlowerForm}/>
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
