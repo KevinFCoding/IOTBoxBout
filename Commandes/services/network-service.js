@@ -18,16 +18,21 @@ function createFrameRemoteATCommandRequest(
 
 function checkDatasFromFirebase(data) {
     // WATERLVL
+    console.log(data);
     let waterLevel = parseInt(data.waterLevel);
-    if (waterLevel < 20) {
+    if (waterLevel < data.criticalLowWL) {
         ledRed();
-    } else if (waterLevel >= 20 && waterLevel < 50) {
-        ledYellow();
-    } else if (waterLevel >= 50 && waterLevel < 90) {
+    } else if (waterLevel >= data.criticalLowWL && waterLevel < data.criticalHighWL) {
         ledGreen();
-    } else if (waterLevel > 90) {
+    } else if (waterLevel > data.criticalHighWL) {
         ledBlue();
     }
+
+    // if (!data.sleep) {
+    //     createFrameRemoteATCommandRequest("D8", [05], data.mac);
+    // } else {
+    //     createFrameRemoteATCommandRequest("D8", [04], data.mac);
+    // }
 }
 
 //Led functions, should be upagradable by one big scalable function
