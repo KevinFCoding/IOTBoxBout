@@ -115,7 +115,7 @@ function getAllRouterNetworkId() {
   refRouters.once('value')
   .then(function(snapshot) {
     Object.values(snapshot.val()).forEach(val => {
-      result.push(val.mac);
+      result.push(val);
     });
   })
 

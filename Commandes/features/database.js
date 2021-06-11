@@ -1,3 +1,5 @@
+var NS = require('../services/network-service');
+
 function initDatabase() {
   var firebase = require("firebase");
   var Model = require('../models/Router.js');
@@ -19,7 +21,7 @@ function initDatabase() {
 
   refPlantes.on('child_changed', (snapshot) => {
     const data = snapshot.val();
-    console.log(data);
+    NS.checkDatasFromFirebase(data);
   });
 }
 

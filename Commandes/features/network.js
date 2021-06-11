@@ -1,16 +1,18 @@
 var databaseService = require("../services/database-service")
+var SerialPort = require('serialport');
+var xbee_api = require('xbee-api');
+const { Router } = require("../models/Router");
+var C = xbee_api.constants;
+require('dotenv').config()
+
+const SERIAL_PORT = process.env.SERIAL_PORT;
+
+var xbeeAPI = new xbee_api.XBeeAPI({
+  api_mode: 2 // API mode uses in XCTU for the coordinator
+});
 
 function initNetwork () {
-  var SerialPort = require('serialport');
-  var xbee_api = require('xbee-api');
-  var C = xbee_api.constants;
-  require('dotenv').config()
 
-  const SERIAL_PORT = process.env.SERIAL_PORT;
-
-  var xbeeAPI = new xbee_api.XBeeAPI({
-    api_mode: 2 // API mode uses in XCTU for the coordinator
-  });
 
   let serialport = new SerialPort(SERIAL_PORT, {
     baudRate: parseInt(process.env.SERIAL_BAUDRATE) || 9600,
@@ -20,6 +22,13 @@ function initNetwork () {
     }
   });
 
+  /*
+  serialport.on("open", function (){
+    var router = new Router("0013A20041A7133C");
+    databaseService.createRouter(router)
+  })
+  */
+ 
   serialport.pipe(xbeeAPI.parser);
   xbeeAPI.builder.pipe(serialport);
 
@@ -58,7 +67,6 @@ function initNetwork () {
 
       // Frame correspondant à la réception de donnée depuis les différents capteurs
       console.log("ZIGBEE_IO_DATA_SAMPLE_RX");
-      console.log(frame)
 
       //Traitement de la data niveau d'eau en pourcentage (AD0 - D0)
       var waterLevelPercentage = (frame.analogSamples.AD0 / 12)
@@ -77,6 +85,23 @@ function initNetwork () {
     }
 
   });
+}
+
+function createFrameRemoteATCommandRequest(
+  xbeeAPI,
+  xbeeApiConstant,
+  command,
+  commandParameters,
+  macAdress
+){
+var frame_obj = { // AT Request to be sent
+  type: xbeeApiConstant.FRAME_TYPE.REMOTE_AT_COMMAND_REQUEST,
+  destination64: macAdress,
+  command: command,
+  commandParameter: commandParameters,
+}
+
+xbeeAPI.builder.write(frame_obj);
 }
 
 exports.initNetwork = initNetwork;
