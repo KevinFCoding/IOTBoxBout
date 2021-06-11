@@ -13,7 +13,7 @@ export default function FlowerDetails({route}) {
 
     useEffect(() => {
         dataManipulation.getPuceByMacAdress(planteMAC).then(f => {
-            let fl = new Flower(f.child("waterLevel").val(),0,0,f.child("lightLevel").val(),0,0);
+            let fl = new Flower(f.child("waterLevel").val(),f.child("criticalHighWL").val(),f.child("criticalLowWL").val(),f.child("lightLevel").val(),f.child("criticalHighLL").val(),f.child("criticalLowLL").val());
             let puce = new Puce(f.child("nodeId").val(),f.child("mac").val(),f.child("sleep").val(),fl);
             setFlower(puce);
         });
