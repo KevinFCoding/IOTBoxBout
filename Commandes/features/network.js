@@ -22,13 +22,6 @@ function initNetwork() {
     }
   });
 
-  /*
-  serialport.on("open", function (){
-    var router = new Router("0013A20041A7133C");
-    databaseService.createRouter(router)
-  })
-  */
-
   serialport.pipe(xbeeAPI.parser);
   xbeeAPI.builder.pipe(serialport);
 
@@ -38,20 +31,18 @@ function initNetwork() {
 
     /*frame composition :
       {
-        type: type de la frame ( AT COMMAND ... )
-        remote64: adresse network de la puce envoyant les données sur 64bit
-        remote16: adresse network de la puce envoyant les données sur 16bit 
-        receiveOptions: ?
-        digitalSamples: Objet contenant les données des pins sous forme digitale (ex : { DIO2: 1, DIO3: 0})
-        analogSamples: Objet contenant les données des pins sous forme digitale (ex : { AD0: 26, AD1: 331})
+        type: frame type ( AT COMMAND, REMOTE AT COMMAND etc... )
+        remote64: network address on 64bit
+        remote16: network address on 16bit 
+        receiveOptions: -
+        digitalSamples: Object containing digital data sent by connected pins (ex : { DIO2: 1, DIO3: 0})
+        analogSamples: Object containing analog data sent by connected pins (ex : { AD0: 26, AD1: 331})
         numSamples : 1
       }
     */
 
-    //register new device when a new connexion arrives
+    //TODO : register new device when a new connexion arrives
 
-    //on packet received, dispatch event
-    //let dataReceived = String.fromCharCode.apply(null, frame.data);
     if (C.FRAME_TYPE.ZIGBEE_RECEIVE_PACKET === frame.type) {
       console.log("C.FRAME_TYPE.ZIGBEE_RECEIVE_PACKET");
       if (frame.data != {}) {
@@ -62,24 +53,24 @@ function initNetwork() {
     }
 
     if (C.FRAME_TYPE.NODE_IDENTIFICATION === frame.type) {
-      // let dataReceived = String.fromCharCode.apply(null, frame.nodeIdentifier);
       console.log("NODE_IDENTIFICATION");
 
     } else if (C.FRAME_TYPE.ZIGBEE_IO_DATA_SAMPLE_RX === frame.type) {
 
-      // Frame correspondant à la réception de donnée depuis les différents capteurs
+      // Data received from different devices will send this frame
       console.log("ZIGBEE_IO_DATA_SAMPLE_RX");
 
       if (frame.analogSamples != {}) {
 
-        //Traitement de la data niveau d'eau en pourcentage (AD0 - D0)
+        //Water level data treatment (AD0 - D0)
         var waterLevelPercentage = (frame.analogSamples.AD0 / 12)
         console.log(waterLevelPercentage);
-        // Envoi de la data traitée dans la db
+        // Sending treated data in database
         databaseService.updateWaterLevel(frame.remote64, parseInt(waterLevelPercentage));
-        //Traitement de la data luminosité en pourcentage (AD1 - D1)
+
+        //Lightning data treatment (AD1 - D1)
         var lightLevelPercentage = (frame.analogSamples.AD1 / 12)
-        // Envoi de la donnée traitée dans la db
+        // Sending treated data in database
         databaseService.updateLightLevel(frame.remote64, lightLevelPercentage);
       }
     } else {
