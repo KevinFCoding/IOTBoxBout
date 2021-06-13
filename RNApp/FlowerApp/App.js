@@ -21,8 +21,8 @@ export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        <Stack.Screen name="Home" options={{ title: 'Flower App' }} component={Home}/>
-        <Stack.Screen name="FlowerList" options={{ title: '' }} component={FlowerList}/>
+        <Stack.Screen name="Home" options={{ title: 'Healthy Leaf' }} component={Home}/>
+        <Stack.Screen name="FlowerList" options={{ title: 'Healthy Leaf' }} component={FlowerList}/>
         <Stack.Screen name="FlowerDetails" options={{ title: 'Détails' }} component={FlowerDetails}/>
         <Stack.Screen name="PuceModal" options={{ title: '' }} component={PucesModal}/>
         <Stack.Screen name="AddFlowerForm" options={{ title: 'Ajouter une plante' }} component={AddFlowerForm}/>
