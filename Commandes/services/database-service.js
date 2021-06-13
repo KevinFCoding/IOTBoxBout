@@ -2,7 +2,7 @@ function createNewPlant(newPlant) {
   var firebase = require("firebase");
 
   var db = firebase.database();
-  var refPlants = db.ref("plantes");
+  var refPlants = db.ref("plants");
   
   refPlants.child(newPlant.mac).set(newPlant, function(error) {
     if (error) {
@@ -19,7 +19,7 @@ function getPlant(macAddress) {
   var firebase = require("firebase");
 
   var db = firebase.database();
-  var refPlants = db.ref("plantes");
+  var refPlants = db.ref("plants");
 
   refPlants.child(macAddress).once('value')
     .then(function(snapshot) {
@@ -31,7 +31,7 @@ function getAllPlants() {
   var firebase = require("firebase");
 
   var db = firebase.database();
-  var refPlants = db.ref("plantes");
+  var refPlants = db.ref("plants");
 
   var result = [];
 
@@ -50,7 +50,7 @@ function updateWaterLevel(macAddress, waterLevel) {
   var firebase = require("firebase");
   
   var db = firebase.database();
-  var refPlants = db.ref("plantes");
+  var refPlants = db.ref("plants");
  if (isNaN(waterLevel))
  return
   refPlants.child(macAddress).child('waterLevel').set(parseInt(waterLevel), function(error) {
@@ -68,7 +68,7 @@ function updateLightLevel(macAddress, lightLevel) {
   var firebase = require("firebase");
   
   var db = firebase.database();
-  var refPlants = db.ref("plantes");
+  var refPlants = db.ref("plants");
   if (isNaN(lightLevel))
   return
   refPlants.child(macAddress).child('lightLevel').set(parseInt(lightLevel), function(error) {
@@ -86,7 +86,7 @@ function updateSleepMode(macAddress, sleep) {
   var firebase = require("firebase");
   
   var db = firebase.database();
-  var refPlants = db.ref("plantes");
+  var refPlants = db.ref("plants");
 
   refPlants.child(macAddress).child('sleep').set(sleep, function(error) {
     if (error) {
@@ -103,7 +103,7 @@ function deletePlant(macAddress) {
   var firebase = require("firebase");
   
   var db = firebase.database();
-  var refPlants = db.ref("plantes");
+  var refPlants = db.ref("plants");
 
   refPlants.child(macAddress).remove();
 }
