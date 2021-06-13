@@ -18,9 +18,9 @@ function initDatabase() {
   });
 
   var db = firebase.database();
-  var refPlantes = db.ref("plantes");
+  var refPlants = db.ref("plants");
 
-  refPlantes.on('child_changed', (snapshot) => {
+  refPlants.on('child_changed', (snapshot) => {
     const data = snapshot.val();
     NS.checkDatasFromFirebase(data);
   });
