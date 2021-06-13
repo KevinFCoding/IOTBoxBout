@@ -1,4 +1,4 @@
-function Plante(
+function Plant(
     nodeId, 
     mac,
     networkId,
@@ -16,5 +16,5 @@ function Plante(
     };
 }
 
-exports.Plante = Plante;
+exports.Plant = Plant;
 

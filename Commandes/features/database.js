@@ -1,9 +1,12 @@
+var NS = require('../services/network-service');
+
 function initDatabase() {
   var firebase = require("firebase");
   var Model = require('../models/Router.js');
   var service = require('../services/database-service.js')
   require('dotenv').config();
 
+  console.log("Start Database");
   firebase.initializeApp({
     apiKey: process.env.API_KEY,
     authDomain: process.env.AUTH_DOMAIN,
@@ -15,11 +18,11 @@ function initDatabase() {
   });
 
   var db = firebase.database();
-  var refPlantes = db.ref("plantes");
+  var refPlants = db.ref("plants");
 
-  refPlantes.on('child_changed', (snapshot) => {
+  refPlants.on('child_changed', (snapshot) => {
     const data = snapshot.val();
-    console.log(data);
+    NS.checkDatasFromFirebase(data);
   });
 }
 

@@ -2,7 +2,7 @@ function createNewPlant(newPlant) {
   var firebase = require("firebase");
 
   var db = firebase.database();
-  var refPlants = db.ref("plantes");
+  var refPlants = db.ref("plants");
   
   refPlants.child(newPlant.mac).set(newPlant, function(error) {
     if (error) {
@@ -19,7 +19,7 @@ function getPlant(macAddress) {
   var firebase = require("firebase");
 
   var db = firebase.database();
-  var refPlants = db.ref("plantes");
+  var refPlants = db.ref("plants");
 
   refPlants.child(macAddress).once('value')
     .then(function(snapshot) {
@@ -31,7 +31,7 @@ function getAllPlants() {
   var firebase = require("firebase");
 
   var db = firebase.database();
-  var refPlants = db.ref("plantes");
+  var refPlants = db.ref("plants");
 
   var result = [];
 
@@ -50,9 +50,10 @@ function updateWaterLevel(macAddress, waterLevel) {
   var firebase = require("firebase");
   
   var db = firebase.database();
-  var refPlants = db.ref("plantes");
-
-  refPlants.child(macAddress).child('waterLevel').set(waterLevel, function(error) {
+  var refPlants = db.ref("plants");
+ if (isNaN(waterLevel))
+ return
+  refPlants.child(macAddress).child('waterLevel').set(parseInt(waterLevel), function(error) {
     if (error) {
       // The write failed...
       console.log("Failed with error: " + error);
@@ -67,9 +68,10 @@ function updateLightLevel(macAddress, lightLevel) {
   var firebase = require("firebase");
   
   var db = firebase.database();
-  var refPlants = db.ref("plantes");
-
-  refPlants.child(macAddress).child('lightLevel').set(lightLevel, function(error) {
+  var refPlants = db.ref("plants");
+  if (isNaN(lightLevel))
+  return
+  refPlants.child(macAddress).child('lightLevel').set(parseInt(lightLevel), function(error) {
     if (error) {
       // The write failed...
       console.log("Failed with error: " + error);
@@ -84,7 +86,7 @@ function updateSleepMode(macAddress, sleep) {
   var firebase = require("firebase");
   
   var db = firebase.database();
-  var refPlants = db.ref("plantes");
+  var refPlants = db.ref("plants");
 
   refPlants.child(macAddress).child('sleep').set(sleep, function(error) {
     if (error) {
@@ -101,7 +103,7 @@ function deletePlant(macAddress) {
   var firebase = require("firebase");
   
   var db = firebase.database();
-  var refPlants = db.ref("plantes");
+  var refPlants = db.ref("plants");
 
   refPlants.child(macAddress).remove();
 }
@@ -123,7 +125,7 @@ function createNewRouter(newRouter) {
   })
 }
 
-function getAllRouterNetworkId() {
+function getAllRouterNetworkId(callback) {
   var firebase = require("firebase");
 
   var db = firebase.database();
@@ -134,9 +136,10 @@ function getAllRouterNetworkId() {
   refRouters.once('value')
   .then(function(snapshot) {
     Object.values(snapshot.val()).forEach(val => {
-      result.push(val.mac);
+      console.log(val)
+      result.push(val);
     });
-
+    callback(result);
     return result;
   })
 }
